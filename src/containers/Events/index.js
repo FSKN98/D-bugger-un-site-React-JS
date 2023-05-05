@@ -30,7 +30,6 @@ const EventList = () => {
     }
     return false;
   });
-  console.log(data?.events);
   const changeType = (evtType) =>
   {
     setCurrentPage(1);
