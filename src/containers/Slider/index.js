@@ -11,10 +11,12 @@ const Slider = () => {
     new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
   );
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), // Si jamais le tableau n'a pas atteint sa longeur maximum je repasse à l'index +1, sinon re passer à 0
-      5000
-    );
+   if (byDateDesc) {
+      setTimeout(
+        () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), // Si jamais le tableau n'a pas atteint sa longeur maximum je repasse à l'index +1, sinon re passer à 0
+        5000
+      );
+    }
   };
   useEffect(() => {
     nextCard();
@@ -23,9 +25,9 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        <div
+         key={event.title}>
           <div
-            key={event.id}
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
             }`}
@@ -42,16 +44,17 @@ const Slider = () => {
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
-                <input
+                  <input
                   key={_.title}
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx} // Il faut comparer le ratio bouton avec l'index actif
+                  onChange={()=>null}
                 />
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
